@@ -6,9 +6,12 @@ public class EmptyOperation : Operation
 {
     public EmptyOperation() : base() {}
 
-    public EmptyOperation(DateTime date) : base(date) {}
-
     public override void Apply(Portfolio porftolio)
+    {
+        return;
+    }
+
+    public override void Revert(Portfolio portfolio)
     {
         return;
     }

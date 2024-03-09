@@ -1,15 +1,15 @@
 ﻿
 using IBFF.Dev.Portfolios;
-using IBFF.Dev.Operations.Factories;
+using IBFF.Dev.Operations;
 
-SessionManager sessionManager = new SessionManager();
+OperationFactory operationFactory = new OperationFactory();
+SessionManager sessionManager = new SessionManager(operationFactory);
 Portfolio portfolio = new Portfolio();
 sessionManager.Attach(portfolio);
 
-OperationFactory operationFactory = new DepositOperationFactory();
-sessionManager.OperationFactory = operationFactory;
-operationFactory.Create();
+operationFactory.CreateOperation(OperationType.Deposit);
 
+operationFactory.CreateOperation(OperationType.Withdraw);
 
 
 Console.WriteLine(portfolio.ToString());

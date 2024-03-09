@@ -17,4 +17,13 @@ public abstract class Operation
     }
 
     public abstract void Apply(Portfolio porftolio);
+
+    public abstract void Revert(Portfolio portfolio);
+}
+
+public enum OperationType
+{
+    EmptyOperation = 0,
+    Deposit,
+    Withdraw,
 }

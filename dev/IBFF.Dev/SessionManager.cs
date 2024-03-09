@@ -1,5 +1,4 @@
 using IBFF.Dev.Operations;
-using IBFF.Dev.Operations.Factories;
 using IBFF.Dev.Portfolios;
 
 public class SessionManager : IDisposable
@@ -8,30 +7,12 @@ public class SessionManager : IDisposable
 
     private Portfolio? _selectedPortfolio;
 
-    private OperationFactory _operationFactory;
+    private readonly OperationFactory _operationFactory;
 
-    private Operation _currentOperation = new EmptyOperation();
-
-    public SessionManager()
+    public SessionManager(OperationFactory operationFactory)
     {
-        _operationFactory = new EmptyOperationFactory();
+        _operationFactory = operationFactory;
         _operationFactory.OnOperationCreated += OnOperationCreated;
-    }
-
-    public Operation CurrentOperation 
-    { 
-        get { return _currentOperation; }
-        set { _currentOperation = value; } 
-    }
-
-    public OperationFactory OperationFactory
-    {
-        get { return _operationFactory; }
-        set 
-        { 
-            _operationFactory = value;
-            _operationFactory.OnOperationCreated += OnOperationCreated;
-        }
     }
 
     public void Attach(Portfolio portfolio)
@@ -57,12 +38,7 @@ public class SessionManager : IDisposable
     {
         if (_selectedPortfolio == null) return;
 
-        _currentOperation = operation;
-        _currentOperation.Apply(_selectedPortfolio);
-
-        _operationFactory.OnOperationCreated -= OnOperationCreated;
-        _operationFactory = new EmptyOperationFactory();
-        _operationFactory.OnOperationCreated += OnOperationCreated;
+        operation.Apply(_selectedPortfolio);
     }
 
     public void Dispose()
