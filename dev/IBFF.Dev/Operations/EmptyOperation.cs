@@ -4,7 +4,10 @@ namespace IBFF.Dev.Operations;
 
 public class EmptyOperation : Operation
 {
-    public EmptyOperation() : base() {}
+    public EmptyOperation() : base() 
+    {
+        _type = OperationType.EmptyOperation;
+    }
 
     public override void Apply(Portfolio porftolio)
     {

@@ -8,6 +8,7 @@ public class WithdrawOperation : Operation
 
     public WithdrawOperation(DateTime date, float deposit) : base(date)
     {
+        _type = OperationType.Withdraw;
         _deposit = deposit;
     }
 

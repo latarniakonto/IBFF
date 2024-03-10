@@ -8,6 +8,7 @@ public class DepositOperation : Operation
 
     public DepositOperation(DateTime date, float deposit) : base(date)
     {
+        _type = OperationType.Deposit;
         _deposit = deposit;
     }
 

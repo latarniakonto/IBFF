@@ -1,5 +1,6 @@
 using IBFF.Dev.Operations;
 using IBFF.Dev.Portfolios;
+using IBFF.Dev.Tools.Validators;
 
 public class SessionManager : IDisposable
 {
@@ -9,8 +10,11 @@ public class SessionManager : IDisposable
 
     private readonly OperationFactory _operationFactory;
 
-    public SessionManager(OperationFactory operationFactory)
+    private readonly OperationValidator _operationValidator;
+
+    public SessionManager(OperationFactory operationFactory, OperationValidator operationValidator)
     {
+        _operationValidator = operationValidator;
         _operationFactory = operationFactory;
         _operationFactory.OnOperationCreated += OnOperationCreated;
     }
@@ -37,8 +41,7 @@ public class SessionManager : IDisposable
     public void OnOperationCreated(object sender, Operation operation)
     {
         if (_selectedPortfolio == null) return;
-
-        operation.Apply(_selectedPortfolio);
+        _selectedPortfolio.AddOperation(operation, _operationValidator);
     }
 
     public void Dispose()

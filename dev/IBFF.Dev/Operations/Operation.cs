@@ -6,9 +6,21 @@ public abstract class Operation
 {
     protected DateTime _date;
 
+    protected OperationType _type;
+
     protected Operation()
     {
         _date = DateTime.Now;
+    }
+
+    public DateTime Date
+    {
+        get { return _date; }
+    }
+
+    public OperationType Type
+    {
+        get { return _type; }
     }
 
     protected Operation(DateTime date)
